@@ -15,6 +15,7 @@ export class AanbiedenpaginaComponent implements OnInit {
     omschrijving: new FormControl(''),
     prijs: new FormControl(''),
     bijlage: new FormControl(''),
+    verzendmethode: new FormControl('')
   });
 
   constructor(private productService: ProductService) {
