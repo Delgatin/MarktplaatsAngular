@@ -1,33 +1,52 @@
-#header {
-  display: flex;
-  flex-direction: row;
-  margin: auto;
+header {
+  background: #8fcae7;
+  margin: 0;
+  padding: 0;
 }
 
-.link {
-  width: 180px;
-  background-color: #e2e2e2;
-  margin: auto;
-  padding: 5px 0;
+header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.router-container {
+  width: 1200px;
+  margin: 50px auto;
+}
+
+.logo {
+  height: 77px;
+  display: block;
+  margin: 15px auto;
+}
+
+nav {
   text-align: center;
 }
 
-.link a:link {
-  color: black;
-  text-decoration: none;
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.link a:visited {
-  color: black;
-  text-decoration: none;
+nav li {
+  display: inline-block;
 }
 
-.link a:hover {
-  color: #6f6f6f;
+nav a {
+  color: #000;
   text-decoration: none;
+  display: inline-block;
+  padding: 20px;
 }
 
-.link a:active {
-  color: #6f6f6f;
-  text-decoration: none;
+nav li:hover {
+  background-color: #ddeff8;
 }

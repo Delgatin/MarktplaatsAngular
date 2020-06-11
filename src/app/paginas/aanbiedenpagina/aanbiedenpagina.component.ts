@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from "@angular/forms";
+import {ProductService} from "./service/product.service";
+
 
 @Component({
   selector: 'app-aanbiedenpagina',
@@ -6,10 +9,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./aanbiedenpagina.component.css']
 })
 export class AanbiedenpaginaComponent implements OnInit {
+  productForm = new FormGroup({
+    productNaam: new FormControl(''),
+    categorie: new FormControl(''),
+    omschrijving: new FormControl(''),
+    prijs: new FormControl(''),
+    bijlage: new FormControl(''),
+  });
 
-  constructor() { }
+  constructor(private productService: ProductService) {
+  }
 
   ngOnInit(): void {
   }
 
+  onSubmit() {
+    console.warn(this.productForm.value)
+    this.productService.register(this.productForm.value)
+      .subscribe(
+        response => console.log("Succes!"),
+        error => console.error("Error!")
+      );
+  }
 }

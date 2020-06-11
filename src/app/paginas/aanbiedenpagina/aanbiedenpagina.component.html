@@ -1,2 +1,30 @@
-<h1>Welk Product wil je verkopen?</h1>
-<p>aanbiedenpagina works!</p>
+<h1>Welk product wil je verkopen?</h1>
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <label>
+    Productnaam
+    <input type="text" formControlName="productNaam">
+  </label>
+  <label>
+    Categorie
+    <input type="text" formControlName="categorie">
+  </label>
+  <label>
+    Omschrijving
+    <textarea formControlName="omschrijving" rows="10"></textarea>
+  </label>
+  <label>
+    Prijs
+    <input type="number" formControlName="prijs" step="0.01">
+  </label>
+  <label>
+    Bijlage
+    <input type="file" formControlName="bijlage">
+  </label>
+  <label>
+    Verzendmethode
+    <input type="text" formControlName="verzendmethode">
+  </label>
+  <button type="submit">Submit</button>
+
+</form>
