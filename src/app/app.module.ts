@@ -9,8 +9,11 @@ import {RegistreerpaginaComponent} from './paginas/registreerpagina/registreerpa
 import {AanbiedenpaginaComponent} from './paginas/aanbiedenpagina/aanbiedenpagina.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
-import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { SameEmailDirective } from './paginas/registreerpagina/validators/not-same-email.directive';
+import { NotSameWachtwoordDirective } from './paginas/registreerpagina/validators/not-same-wachtwoord.directive';
+
 
 
 @NgModule({
@@ -20,7 +23,9 @@ import {HttpClientModule} from "@angular/common/http";
     ZoekpaginaComponent,
     LoginpaginaComponent,
     RegistreerpaginaComponent,
-    AanbiedenpaginaComponent
+    AanbiedenpaginaComponent,
+    SameEmailDirective,
+    NotSameWachtwoordDirective
   ],
   imports: [
     BrowserModule,
