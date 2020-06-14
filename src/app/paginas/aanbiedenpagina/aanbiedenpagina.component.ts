@@ -30,8 +30,9 @@ export class AanbiedenpaginaComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.productForm.value)
-    this.productService.plaatsTeVerkopenProduct(this.productForm.value)
+    console.log(JSON.parse(JSON.stringify(this.productForm.value)));
+    console.log(this.productForm.getRawValue());
+    this.productService.plaatsTeVerkopenProduct(JSON.parse(JSON.stringify(this.productForm.value)))
       .subscribe(
         response => console.log("Succes!"),
         error => console.error("Error!")
