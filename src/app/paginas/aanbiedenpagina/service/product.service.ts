@@ -5,12 +5,17 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class ProductService {
-  _url = "http://localhost:9080/Marktplaats_war_exploded/main/verkoop/testAngular"
+  urlPostTeVerkopenProduct = "http://localhost:9080/Marktplaats_war_exploded/main/verkoop/testAngular"
+  urlCategorieen = "http://localhost:9080/Marktplaats_war_exploded/main/verkoop/categorieen"
 
   constructor(private _http: HttpClient) {
   }
 
-  register(userData) {
-    return this._http.post<any>(this._url, userData);
+  getCategorieen() {
+    return this._http.get<any>(this.urlCategorieen)
+  }
+
+  plaatsTeVerkopenProduct(formData) {
+    return this._http.post<any>(this.urlPostTeVerkopenProduct, formData);
   }
 }

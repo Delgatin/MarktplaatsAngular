@@ -6,7 +6,12 @@
     <input type="text" formControlName="productNaam">
   </label>
   <label>
+    <br>
     Categorie
+    <button class="extra-informatie" (click)="toggleShowCategorieen()">i</button>
+    <ul [hidden]="!showCategorieen">
+      <li *ngFor="let categorie of categorieen | async">{{categorie}}</li>
+    </ul>
     <input type="text" formControlName="categorie">
   </label>
   <label>
@@ -28,3 +33,5 @@
   <button type="submit">Submit</button>
 
 </form>
+
+

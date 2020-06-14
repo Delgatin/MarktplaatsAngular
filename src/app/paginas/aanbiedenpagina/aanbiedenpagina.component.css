@@ -24,6 +24,15 @@ button {
   cursor: pointer;
 }
 
+label > button.extra-informatie {
+  font-size: 16px;
+  width: 18px;
+  margin: 0;
+  padding: 0px;
+  border-radius: 100px;
+  height: 18px;
+}
+
 button:hover {
   background-color: #01689b;
 }
