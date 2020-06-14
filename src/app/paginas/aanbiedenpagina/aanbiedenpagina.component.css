@@ -36,3 +36,14 @@ label > button.extra-informatie {
 button:hover {
   background-color: #01689b;
 }
+
+.extra-informatie-venster {
+  color: #ffffff;
+  font-size: 14px;
+  background-color: #007bc7;
+  padding: 20px;
+  width: 250px;
+  list-style-type: none;
+  border-radius: 10px;
+  line-height: 20px;
+}

@@ -9,7 +9,8 @@
     <br>
     Categorie
     <button class="extra-informatie" (click)="toggleShowCategorieen()">i</button>
-    <ul [hidden]="!showCategorieen">
+    <ul [hidden]="!showCategorieen" class="extra-informatie-venster">
+      De mogelijke categorieën zijn:
       <li *ngFor="let categorie of categorieen | async">{{categorie}}</li>
     </ul>
     <input type="text" formControlName="categorie">
