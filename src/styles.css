@@ -1,11 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
 body {
-  width: 100%;
-  margin: auto;
-  padding: 0;
-  font-family: "RO Sans", Verdana, Arial, sans-serif;
+  margin: 0;
+  font-family: Arial, sans-serif;
   font-size: 15px;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+h2 {
+  font-size: 21px;
+  font-weight: 600;
+}

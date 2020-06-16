@@ -15,7 +15,7 @@ export class AanbiedenpaginaComponent implements OnInit {
       categorie: new FormControl(''),
       omschrijving: new FormControl(''),
       prijs: new FormControl(''),
-      bijlage: new FormControl(''),
+      bijlagen: new FormControl(''),
       verzendmethode: new FormControl('')
     }
   );
@@ -28,10 +28,6 @@ export class AanbiedenpaginaComponent implements OnInit {
 
   ngOnInit(): void {
     this.categorieen = this.productService.getCategorieen();
-
-    this.categorieen.subscribe(x => {
-      this.categorieen = x;
-    })
   }
 
   onSubmit() {

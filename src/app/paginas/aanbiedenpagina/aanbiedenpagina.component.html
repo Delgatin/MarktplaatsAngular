@@ -16,7 +16,7 @@
 
     <select formControlName="categorie">
       <option disabled selected value>-- Kies een categorie --</option>
-      <option *ngFor="let categorie of categorieen">{{categorie}}</option>
+      <option *ngFor="let categorie of categorieen | async">{{categorie}}</option>
     </select>
   </label>
   <label>
@@ -29,7 +29,7 @@
   </label>
   <label>
     Bijlage
-    <input type="file" formControlName="bijlage">
+    <input type="file" formControlName="bijlagen">
   </label>
   <label>
     Verzendmethode
