@@ -4,9 +4,9 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
-  urlPostTeVerkopenProduct = "http://localhost:9080/Marktplaats_war_exploded/main/verkoop/testAngular"
-  urlCategorieen = "http://localhost:9080/Marktplaats_war_exploded/main/verkoop/categorieen"
+export class ProductServiceService {
+  urlPostTeVerkopenProduct = "http://localhost:9080/Marktplaats_war_exploded/main/artikelen/verkoopArtikel"
+  urlCategorieen = "http://localhost:9080/Marktplaats_war_exploded/main/artikelen/categorieen"
 
   constructor(private _http: HttpClient) {
   }

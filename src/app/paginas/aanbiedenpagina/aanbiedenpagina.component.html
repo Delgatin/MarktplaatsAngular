@@ -3,17 +3,21 @@
 <form [formGroup]="productForm">
   <label>
     Productnaam
-    <input type="text" formControlName="productNaam">
+    <input type="text" formControlName="artikelNaam">
   </label>
   <label>
-    <br>
     Categorie
+
     <button class="extra-informatie" (click)="toggleShowCategorieen()">i</button>
-    <ul [hidden]="!showCategorieen" class="extra-informatie-venster">
-      De mogelijke categorieën zijn:
-      <li *ngFor="let categorie of categorieen | async">{{categorie}}</li>
-    </ul>
-    <input type="text" formControlName="categorie">
+    <div [hidden]="!showExtraInfoCategorieen" class="extra-informatie-venster">
+      <p>Kies hier onder welke categorie je product valt.</p>
+      <p>Voorbeeld: Een paar schoenen vallen onder de categorie "Kleding".</p>
+    </div>
+
+    <select formControlName="categorie">
+      <option disabled selected value>-- Kies een categorie --</option>
+      <option *ngFor="let categorie of categorieen">{{categorie}}</option>
+    </select>
   </label>
   <label>
     Omschrijving
@@ -21,7 +25,7 @@
   </label>
   <label>
     Prijs
-    <input type="text" formControlName="prijs">
+    <input type="number" formControlName="prijs">
   </label>
   <label>
     Bijlage
@@ -31,7 +35,7 @@
     Verzendmethode
     <input type="text" formControlName="verzendmethode">
   </label>
-  <button type="submit" (click)="onSubmit()">Submit</button>
+  <button type="submit" (click)="onSubmit()">Plaats product</button>
 
 </form>
 

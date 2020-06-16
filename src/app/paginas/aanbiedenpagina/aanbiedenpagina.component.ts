@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {ProductService} from "./service/product.service";
+import {ProductServiceService} from "./service/productService.service";
 
 @Component({
   selector: 'app-aanbiedenpagina',
   templateUrl: './aanbiedenpagina.component.html',
   styleUrls: ['./aanbiedenpagina.component.css']
 })
+
 export class AanbiedenpaginaComponent implements OnInit {
   productForm = new FormGroup(
     {
-      productNaam: new FormControl(''),
+      artikelNaam: new FormControl(''),
       categorie: new FormControl(''),
       omschrijving: new FormControl(''),
       prijs: new FormControl(''),
@@ -20,13 +21,17 @@ export class AanbiedenpaginaComponent implements OnInit {
   );
 
   categorieen;
-  showCategorieen: boolean;
+  showExtraInfoCategorieen: boolean;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductServiceService) {
   }
 
   ngOnInit(): void {
     this.categorieen = this.productService.getCategorieen();
+
+    this.categorieen.subscribe(x => {
+      this.categorieen = x;
+    })
   }
 
   onSubmit() {
@@ -40,6 +45,6 @@ export class AanbiedenpaginaComponent implements OnInit {
   }
 
   toggleShowCategorieen() {
-    this.showCategorieen = !this.showCategorieen;
+    this.showExtraInfoCategorieen = !this.showExtraInfoCategorieen;
   }
 }
