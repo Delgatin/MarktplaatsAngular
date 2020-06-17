@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, LOCALE_ID} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {StartpaginaComponent} from './paginas/startpagina/startpagina.component';
@@ -9,10 +9,13 @@ import {RegistreerpaginaComponent} from './paginas/registreerpagina/registreerpa
 import {AanbiedenpaginaComponent} from './paginas/aanbiedenpagina/aanbiedenpagina.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
-import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { PrijsPipe } from './pipes/prijs.pipe';
+import { registerLocaleData } from '@angular/common';
+import localeNL from '@angular/common/locales/nl';
 
+registerLocaleData(localeNL, 'nl');
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,16 +24,16 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     LoginpaginaComponent,
     RegistreerpaginaComponent,
     AanbiedenpaginaComponent,
+    PrijsPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    NoopAnimationsModule
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: LOCALE_ID, useValue: 'nl'}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
