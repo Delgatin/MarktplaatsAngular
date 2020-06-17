@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {notSameEmailValidator} from './validators/not-same-email.directive';
 import {notSameWachtwoordValidator} from './validators/not-same-wachtwoord.directive';
 import {RegistreerService} from './services/registreer.service';
@@ -48,11 +48,11 @@ export class RegistreerpaginaComponent implements OnInit {
     afhalenThuis: new FormControl(this.bezorgOpties[1].def),
     versturen: new FormControl(this.bezorgOpties[2].def),
     versturenRembours: new FormControl(this.bezorgOpties[3].def),
-    straatnaam: new FormControl(''),
-    huisnummer: new FormControl(''),
+    straatnaam: new FormControl('', this.adresConditionallyRequiredValidator),
+    huisnummer: new FormControl('', this.adresConditionallyRequiredValidator),
     huisnummerToevoeging: new FormControl(''),
-    postcode: new FormControl(''),
-    plaatsnaam: new FormControl(''),
+    postcode: new FormControl('',  this.adresConditionallyRequiredValidator),
+    plaatsnaam: new FormControl('',  this.adresConditionallyRequiredValidator),
     land: new FormControl('Nederland'),
     regelementakkoord: new FormControl(false)
   }, {validators: [notSameEmailValidator] });
@@ -77,6 +77,14 @@ export class RegistreerpaginaComponent implements OnInit {
               this.verificatieVanEmailIs = false;
             }
     });
+
+    this.registreerForm.get('afhalenThuis').valueChanges
+      .subscribe(value => {
+        this.registreerForm.get('straatnaam').updateValueAndValidity();
+        this.registreerForm.get('plaatsnaam').updateValueAndValidity();
+        this.registreerForm.get('huisnummer').updateValueAndValidity();
+        this.registreerForm.get('postcode').updateValueAndValidity();
+      });
   }
 
   onSubmit() {
@@ -130,5 +138,15 @@ export class RegistreerpaginaComponent implements OnInit {
             this.veld1Id = 'email1-valid';
           }
       });
+  }
+
+    adresConditionallyRequiredValidator(formControl: AbstractControl) {
+    if (!formControl.parent) {
+      return null;
+    }
+    if (formControl.parent.get('afhalenThuis').value) {
+      return Validators.required(formControl);
+    }
+    return null;
   }
 }
