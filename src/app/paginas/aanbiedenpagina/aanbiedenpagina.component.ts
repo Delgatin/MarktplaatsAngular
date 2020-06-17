@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {ProductServiceService} from "./service/productService.service";
+import {FormControl, FormGroup} from '@angular/forms';
+import {ProductService} from './service/productService.service';
 
 @Component({
   selector: 'app-aanbiedenpagina',
@@ -23,7 +23,7 @@ export class AanbiedenpaginaComponent implements OnInit {
   categorieen;
   showExtraInfoCategorieen: boolean;
 
-  constructor(private productService: ProductServiceService) {
+  constructor(private productService: ProductService) {
   }
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class AanbiedenpaginaComponent implements OnInit {
     console.log(this.productForm.value);
     this.productService.plaatsTeVerkopenProduct(this.productForm.value)
       .subscribe(
-        response => console.log("Succes!"),
+        response => console.log('Succes!'),
         error => console.error(error)
       );
   }
