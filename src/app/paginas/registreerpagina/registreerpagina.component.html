@@ -1,37 +1,34 @@
-<h1>registreer uwzelf!</h1>
+<h1>Registreer uwzelf!</h1>
 
-<form [formGroup]="registreerForm" >
+<form [formGroup]="registreerForm">
   <label>
     Wat is uw email?
     <input id={{veld1Id}} class="form-control" type="text" formControlName="email1">
   </label>
-    <div *ngIf="registreerForm.controls.email1.errors?.required" class="information">
-      *Dit is een verplicht veld
-    </div>
-    <div *ngIf="registreerForm.controls.email1.errors?.maxLength" class="alert-invoer-fout">
-      !Dit veld mag maximaal 64 karakters bevatten.
-    </div>
-    <div *ngIf="registreerForm.controls.email1.errors?.pattern" class="alert-invoer-fout">>
-      Geen correct email adres ingevoerd; voorbeeld@iets.nogiets.
-    </div>
+  <div *ngIf="registreerForm.controls.email1.errors?.required" class="information">
+    *Dit is een verplicht veld
+  </div>
+  <div *ngIf="registreerForm.controls.email1.errors?.maxLength" class="alert-invoer-fout">
+    !Dit veld mag maximaal 64 karakters bevatten.
+  </div>
+  <div *ngIf="registreerForm.controls.email1.errors?.pattern" class="alert-invoer-fout">>
+    Geen correct email adres ingevoerd; voorbeeld@iets.nogiets.
+  </div>
 
   <label>
     bevestig email
     <input id="email2" type="text" formControlName="email2">
   </label>
-    <div *ngIf="registreerForm.errors?.notSameEmail"
-     class="cross-validation-error-message-alert-alert-danger">
-      Beide email adressen moeten hetzelfde zijn
-    </div>
+  <div *ngIf="registreerForm.errors?.notSameEmail"
+       class="cross-validation-error-message-alert-alert-danger">
+    Beide email adressen moeten hetzelfde zijn
+  </div>
 
+  <button class="verify-button" [hidden]="verificatieVanEmailIs" [disabled]="registreerForm.errors?.notSameEmail"
+          (click)="verifyEmail()">
+    Verifieer Email
+  </button>
 
-  <pre>{{registreerForm.errors | json}}</pre>
-
-  <pre>{{verificatieVanEmail | json}}</pre>
-
-  <pre>{{verificatieVanEmailIs}}</pre>
-
-  <button [hidden]="verificatieVanEmailIs" [disabled]="registreerForm.errors?.notSameEmail" (click)="verifyEmail()">Verifieer Email</button>
   <label>
     Welk wachtwoord wilt u gebruiken (minimaal 6 tekens, minimaal 1 letter, minimaal 1 cijfer)
     <input type="password" formControlName="wachtwoord1">
@@ -44,56 +41,60 @@
   <label>Bezorgwijze</label>
 
   <div class="bezorgwijze-container">
-   <div class="bezorgwijze-titels">
-     <p>{{bezorgOpties[0].wijze}}</p>
-     <p>{{bezorgOpties[1].wijze}}</p>
-     <p>{{bezorgOpties[2].wijze}}</p>
-     <p>{{bezorgOpties[3].wijze}}</p>
-   </div>
+    <div class="bezorgwijze-titels">
+      <p>{{bezorgOpties[0].wijze}}</p>
+      <p>{{bezorgOpties[1].wijze}}</p>
+      <p>{{bezorgOpties[2].wijze}}</p>
+      <p>{{bezorgOpties[3].wijze}}</p>
+    </div>
     <div class="bezorgwijze-item">
       <input type="checkbox" formControlName="afhalenMagazijn">
-      <input type="checkbox" formControlName="afhalenThuis">
+      <input type="checkbox" formControlName="afhalenThuis" (click)="toggleAdresForm()">
       <input type="checkbox" formControlName="versturen">
       <input type="checkbox" formControlName="versturenRembours">
     </div>
     <br>
   </div>
 
-  <label>
-    straatnaam
-    <input type="text" formControlName="straatnaam">
-  </label>
-  <label>
-    huisnummer
-    <input type="text" formControlName="huisnummer">
-  </label>
-  <label>
-    huisnummer toevoeging
-    <input type="text" formControlName="huisnummerToevoeging">
-  </label>
-  <label>
-    postcode
-    <input type="text" formControlName="postcode">
-  </label>
-  <label>
-    plaatsnaam
-    <input type="text" formControlName="plaatsnaam">
-  </label>
-  <label>
-    land
-    <input type="text" formControlName="land">
-  </label>
-  <label>
-    Het regelement.
-  </label>
+  <div class="adresForm" [hidden]="!showAdresForm">
+    <label>
+      Straatnaam
+      <input type="text" formControlName="straatnaam">
+    </label>
+    <label>
+      Huisnummer
+      <input type="text" formControlName="huisnummer">
+    </label>
+    <label>
+      Huisnummer toevoeging
+      <input type="text" formControlName="huisnummerToevoeging">
+    </label>
+    <label>
+      Postcode
+      <input type="text" formControlName="postcode">
+    </label>
+    <label>
+      Plaatsnaam
+      <input type="text" formControlName="plaatsnaam">
+    </label>
+    <label>
+      Land
+      <input type="text" formControlName="land">
+    </label>
+  </div>
+
   <div class="bezorgwijze-container">
     <div class="bezorgwijze-titels">
-      <p>Gaat U akkoord met het regelement?</p>
+      <span>Gaat u akkoord met het &#160;<i class="custom-link" (click)="toggleRegelementWindow()">regelement?</i></span>
     </div>
-    <div>
+    <div class="bezorgwijze-item">
       <input type="checkbox" formControlName="regelementakkoord">
     </div>
-    <br>
+    <div class="bezorwijze-item"></div>
+  </div>
+
+  <div [hidden]="!showRegelementWindow" class="regelementakkoordWindow">
+    <p>Het regelement zegt dat wij niet verantwoordelijk zijn!</p>
   </div>
 
   <button type="submit" (click)="onSubmit()">Submit</button>

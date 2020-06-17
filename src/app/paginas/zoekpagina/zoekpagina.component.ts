@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ZoekService} from './service/zoek.service';
 import {Observable} from 'rxjs';
@@ -26,15 +26,20 @@ export class ZoekpaginaComponent implements OnInit {
   id: number;
   producten: Product[];
 
-  constructor(private zoekService: ZoekService) { }
+  constructor(private zoekService: ZoekService) {
+  }
 
   ngOnInit(): void {
     const objectObservable: Observable<any> = this.zoekService.getAllProducten();
-    objectObservable.subscribe(p => { this.producten = p; });
+    objectObservable.subscribe(p => {
+      this.producten = p;
+    });
   }
 
   clickButton() {
     const objectObservable: Observable<any> = this.zoekService.getProductById(this.id);
-    objectObservable.subscribe(p => { this.producten = p; });
+    objectObservable.subscribe(p => {
+      this.producten = p;
+    });
   }
 }

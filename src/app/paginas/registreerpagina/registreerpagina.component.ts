@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {notSameEmailValidator} from './validators/not-same-email.directive';
-import {notSameWachtwoordValidator} from './validators/not-same-wachtwoord.directive';
 import {RegistreerService} from './services/registreer.service';
 import {Observable} from 'rxjs';
 import {AllowedEmail} from './classes/allowed-email';
@@ -15,13 +14,33 @@ import {AllowedEmail} from './classes/allowed-email';
 export class RegistreerpaginaComponent implements OnInit {
   bezorgOpties = [
     // tslint:disable-next-line:max-line-length
-    {wijze: 'Afhalen Magazijn', def: true, uitleg: 'U moet verkochte producten afgeven in het magazijn, waarna de koper ze daar kan afhalen.', evalue: 'AfhalenMagazijn'},
+    {
+      wijze: 'Afhalen Magazijn',
+      def: true,
+      uitleg: 'U moet verkochte producten afgeven in het magazijn, waarna de koper ze daar kan afhalen.',
+      evalue: 'AfhalenMagazijn'
+    },
     // tslint:disable-next-line:max-line-length
-    {wijze: 'Afhalen Thuis', def: false, uitleg: 'U moet uw adres opgeven, een koper kan dan gekochte producten dan bij u thuis afhalen.', evalue: 'AfhalenThuis'},
+    {
+      wijze: 'Afhalen Thuis',
+      def: false,
+      uitleg: 'U moet uw adres opgeven, een koper kan dan gekochte producten dan bij u thuis afhalen.',
+      evalue: 'AfhalenThuis'
+    },
     // tslint:disable-next-line:max-line-length
-    {wijze: 'Versturen', def: false, uitleg: 'Indien u iets verkoopt ben u verantwoordelijk voor verzending naar koper', evalue: 'Versturen'},
+    {
+      wijze: 'Versturen',
+      def: false,
+      uitleg: 'Indien u iets verkoopt ben u verantwoordelijk voor verzending naar koper',
+      evalue: 'Versturen'
+    },
     // tslint:disable-next-line:max-line-length
-    {wijze: 'Versturen onder Rembours', def: false, uitleg: 'Indien u iets verkoopt ben u verantwoordelijk voor verzending naar koper', evalue: 'VersturenOnderRembours' },
+    {
+      wijze: 'Versturen onder Rembours',
+      def: false,
+      uitleg: 'Indien u iets verkoopt ben u verantwoordelijk voor verzending naar koper',
+      evalue: 'VersturenOnderRembours'
+    },
   ];
   registreerForm = new FormGroup({
     email1: new FormControl('',
@@ -39,8 +58,8 @@ export class RegistreerpaginaComponent implements OnInit {
     ),
     wachtwoord1: new FormControl('',
       [
-       Validators.pattern(' /^[0-9a-zA-Z]+$/'),
-       Validators.min(6)
+        Validators.pattern(' /^[0-9a-zA-Z]+$/'),
+        Validators.min(6)
       ]
     ),
     wachtwoord2: new FormControl(''),
@@ -51,11 +70,11 @@ export class RegistreerpaginaComponent implements OnInit {
     straatnaam: new FormControl('', this.adresConditionallyRequiredValidator),
     huisnummer: new FormControl('', this.adresConditionallyRequiredValidator),
     huisnummerToevoeging: new FormControl(''),
-    postcode: new FormControl('',  this.adresConditionallyRequiredValidator),
-    plaatsnaam: new FormControl('',  this.adresConditionallyRequiredValidator),
+    postcode: new FormControl('', this.adresConditionallyRequiredValidator),
+    plaatsnaam: new FormControl('', this.adresConditionallyRequiredValidator),
     land: new FormControl('Nederland'),
     regelementakkoord: new FormControl(false)
-  }, {validators: [notSameEmailValidator] });
+  }, {validators: [notSameEmailValidator]});
 
   // , notSameWachtwoordValidator
   verificatieVanEmail: Observable<AllowedEmail>;
@@ -63,7 +82,11 @@ export class RegistreerpaginaComponent implements OnInit {
   verificatieVanEmailIs: boolean;
   veld1Id: string;
   bezorgboxen: string[] = [];
-  constructor(private registreerService: RegistreerService) { }
+  showAdresForm: boolean;
+  showRegelementWindow: boolean;
+
+  constructor(private registreerService: RegistreerService) {
+  }
 
   ngOnInit(): void {
     this.veld1Id = 'email1';
@@ -73,9 +96,9 @@ export class RegistreerpaginaComponent implements OnInit {
     };
     this.verificatieVanEmailIs = false;
     this.registreerForm.get('email1').valueChanges.subscribe(value => {
-            if (this.registreerForm.value.email1 !== this.verificatieObject.email){
-              this.verificatieVanEmailIs = false;
-            }
+      if (this.registreerForm.value.email1 !== this.verificatieObject.email) {
+        this.verificatieVanEmailIs = false;
+      }
     });
 
     this.registreerForm.get('afhalenThuis').valueChanges
@@ -89,24 +112,24 @@ export class RegistreerpaginaComponent implements OnInit {
 
   onSubmit() {
     console.warn(this.registreerForm.value);
-    if (this.registreerForm.value.afhalenMagazijn){
+    if (this.registreerForm.value.afhalenMagazijn) {
       this.bezorgboxen.push(this.bezorgOpties[0].evalue);
     }
-    if (this.registreerForm.value.afhalenThuis){
+    if (this.registreerForm.value.afhalenThuis) {
       this.bezorgboxen.push(this.bezorgOpties[1].evalue);
     }
-    if (this.registreerForm.value.versturen){
+    if (this.registreerForm.value.versturen) {
       this.bezorgboxen.push(this.bezorgOpties[2].evalue);
     }
-    if (this.registreerForm.value.versturenRembours){
+    if (this.registreerForm.value.versturenRembours) {
       this.bezorgboxen.push(this.bezorgOpties[3].evalue);
     }
-    if (Array.isArray(this.bezorgboxen) && !this.bezorgboxen.length){
+    if (Array.isArray(this.bezorgboxen) && !this.bezorgboxen.length) {
       this.bezorgboxen.push('AfhalenMagazijn');
     }
 
     const registreerDto: any = {
-      email : this.registreerForm.value.email1,
+      email: this.registreerForm.value.email1,
       regelementAkkoord: true,
       bezorgwijzen: this.bezorgboxen,
       wachtwoord: this.registreerForm.value.wachtwoord1,
@@ -131,16 +154,16 @@ export class RegistreerpaginaComponent implements OnInit {
     console.log('verfiyEmail has been called');
     this.verificatieVanEmail = this.registreerService.checkValid(this.registreerForm.value.email1);
     this.verificatieVanEmail.subscribe(x => {
-          this.verificatieObject = x;
-          console.log(x);
-          this.verificatieVanEmailIs = x.allowed;
-          if (this.verificatieVanEmailIs){
-            this.veld1Id = 'email1-valid';
-          }
-      });
+      this.verificatieObject = x;
+      console.log(x);
+      this.verificatieVanEmailIs = x.allowed;
+      if (this.verificatieVanEmailIs) {
+        this.veld1Id = 'email1-valid';
+      }
+    });
   }
 
-    adresConditionallyRequiredValidator(formControl: AbstractControl) {
+  adresConditionallyRequiredValidator(formControl: AbstractControl) {
     if (!formControl.parent) {
       return null;
     }
@@ -148,5 +171,13 @@ export class RegistreerpaginaComponent implements OnInit {
       return Validators.required(formControl);
     }
     return null;
+  }
+
+  toggleAdresForm() {
+    this.showAdresForm = !this.showAdresForm;
+  }
+
+  toggleRegelementWindow() {
+    this.showRegelementWindow = !this.showRegelementWindow;
   }
 }

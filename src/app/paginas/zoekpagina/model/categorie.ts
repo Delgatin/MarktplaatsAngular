@@ -1,3 +1,3 @@
 export interface Categorie {
- categorieNaam: string;
+  categorieNaam: string;
 }
