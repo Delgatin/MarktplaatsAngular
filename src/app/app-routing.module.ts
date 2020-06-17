@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
-
 import {RouterModule, Routes} from '@angular/router';
+
 import {StartpaginaComponent} from './paginas/startpagina/startpagina.component';
 import {LoginpaginaComponent} from './paginas/loginpagina/loginpagina.component';
 import {RegistreerpaginaComponent} from './paginas/registreerpagina/registreerpagina.component';
