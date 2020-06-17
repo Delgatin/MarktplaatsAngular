@@ -31,12 +31,11 @@ export class AanbiedenpaginaComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(JSON.parse(JSON.stringify(this.productForm.value)));
-    console.log(this.productForm.getRawValue());
-    this.productService.plaatsTeVerkopenProduct(JSON.parse(JSON.stringify(this.productForm.value)))
+    console.log(this.productForm.value);
+    this.productService.plaatsTeVerkopenProduct(this.productForm.value)
       .subscribe(
         response => console.log("Succes!"),
-        error => console.error("Error!")
+        error => console.error(error)
       );
   }
 
