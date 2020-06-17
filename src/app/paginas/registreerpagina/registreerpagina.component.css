@@ -1,0 +1,119 @@
+label {
+  font-size: 18px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea{padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;}
+
+button {
+  font-size: 24px;
+  width: 100%;
+  background-color: #007bc7;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+button:hover {
+  background-color: #01689b;
+}
+
+.information{
+  font-size: 12px;
+  font-style: italic;
+  padding: 5px 5px;
+  line-height: 20px;
+}
+
+.alert-invoer-fout{
+  font-size: 12px;
+  font-style: italic;
+  padding: 5px 5px;
+  line-height: 20px;
+  color: red;
+}
+
+span{
+  font-size: 18px;
+}
+
+
+.cross-validation-error-message-alert-alert-danger{
+  font-size: 12px;
+  font-style: italic;
+  padding: 5px 5px;
+  line-height: 20px;
+  color: red;
+}
+
+.bezorgwijze-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bezorgwijze-item{
+  min-height:50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bezorgwijze-titels{
+  display: flex;
+  flex-direction: column;
+  min-height: 50px;
+}
+
+.bezorgwijze-item input{
+  display: flex;
+  min-height:50px;
+  margin: auto 0;
+  align-items: center;
+}
+
+.bezorgwijze-titels p{
+  display: flex;
+  min-height:50px;
+  margin: auto 0;
+  align-items: center;
+}
+
+
+td{
+  text-align: left;
+  width: 50%;
+}
+
+#email1-valid{
+  color: lightgreen;
+}
+
+input[type='checkbox'] {
+  width:18px;
+  height:18px;
+  background:white;
+  border-radius:5px;
+  border:2px solid #555;
+}
+input[type='checkbox']:checked {
+  background: #abd;
+}

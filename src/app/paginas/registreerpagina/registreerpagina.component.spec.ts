@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegistreerpaginaComponent } from './registreerpagina.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('RegistreerpaginaComponent', () => {
   let component: RegistreerpaginaComponent;
@@ -11,6 +12,9 @@ describe('RegistreerpaginaComponent', () => {
       declarations: [ RegistreerpaginaComponent ]
     })
     .compileComponents();
+    TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ]
+    });
   }));
 
   beforeEach(() => {
@@ -21,5 +25,12 @@ describe('RegistreerpaginaComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('try ternairy', () => {
+    const wachtwoord1 = 'wachtwoord1';
+    const wachtwoord2 = 'wachtwoord1';
+    // @ts-ignore
+    expect(wachtwoord1 && wachtwoord2 && wachtwoord2 === wachtwoord1 ? null : true).toBe(null);
   });
 });

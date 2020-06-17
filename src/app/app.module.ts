@@ -20,7 +20,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     ZoekpaginaComponent,
     LoginpaginaComponent,
     RegistreerpaginaComponent,
-    AanbiedenpaginaComponent
+    AanbiedenpaginaComponent,
   ],
   imports: [
     BrowserModule,
