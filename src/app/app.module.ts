@@ -11,9 +11,6 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { SameEmailDirective } from './paginas/registreerpagina/validators/not-same-email.directive';
-import { NotSameWachtwoordDirective } from './paginas/registreerpagina/validators/not-same-wachtwoord.directive';
-
 
 
 @NgModule({
@@ -24,8 +21,6 @@ import { NotSameWachtwoordDirective } from './paginas/registreerpagina/validator
     LoginpaginaComponent,
     RegistreerpaginaComponent,
     AanbiedenpaginaComponent,
-    SameEmailDirective,
-    NotSameWachtwoordDirective
   ],
   imports: [
     BrowserModule,

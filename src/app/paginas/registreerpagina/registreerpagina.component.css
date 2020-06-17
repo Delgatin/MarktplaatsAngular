@@ -1,0 +1,86 @@
+label {
+  font-size: 18px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea{padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;}
+
+button {
+  font-size: 24px;
+  width: 100%;
+  background-color: #007bc7;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+button:hover {
+  background-color: #01689b;
+}
+
+.information{
+  font-size: 12px;
+  font-style: italic;
+  padding: 5px 5px;
+  line-height: 20px;
+}
+
+.alert-invoer-fout{
+  font-size: 12px;
+  font-style: italic;
+  padding: 5px 5px;
+  line-height: 20px;
+  color: red;
+}
+
+span{
+  font-size: 18px;
+}
+
+
+.cross-validation-error-message-alert-alert-danger{
+  font-size: 12px;
+  font-style: italic;
+  padding: 5px 5px;
+  line-height: 20px;
+  color: red;
+}
+
+td{
+  text-align: left;
+  width: 50%;
+}
+
+#email1-valid{
+  color: lightgreen;
+}
+
+input[type='checkbox'] {
+  width:30px;
+  height:30px;
+  background:white;
+  border-radius:5px;
+  border:2px solid #555;
+}
+input[type='checkbox']:checked {
+  background: #abd;
+}

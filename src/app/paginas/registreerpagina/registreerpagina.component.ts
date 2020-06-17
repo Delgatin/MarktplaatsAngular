@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {ProductService} from './service/product.service';
 import {notSameEmailValidator} from './validators/not-same-email.directive';
 import {notSameWachtwoordValidator} from './validators/not-same-wachtwoord.directive';
-
+import {RegistreerService} from './services/registreer.service';
+import {Observable} from 'rxjs';
+import {AllowedEmail} from './classes/allowed-email';
 
 
 @Component({
@@ -12,49 +13,122 @@ import {notSameWachtwoordValidator} from './validators/not-same-wachtwoord.direc
   styleUrls: ['./registreerpagina.component.css']
 })
 export class RegistreerpaginaComponent implements OnInit {
-  bezorgOpties = [];
+  bezorgOpties = [
+    // tslint:disable-next-line:max-line-length
+    {wijze: 'Afhalen Magazijn', def: true, uitleg: 'U moet verkochte producten afgeven in het magazijn, waarna de koper ze daar kan afhalen.', evalue: 'AfhalenMagazijn'},
+    // tslint:disable-next-line:max-line-length
+    {wijze: 'Afhalen Thuis', def: false, uitleg: 'U moet uw adres opgeven, een koper kan dan gekochte producten dan bij u thuis afhalen.', evalue: 'AfhalenThuis'},
+    // tslint:disable-next-line:max-line-length
+    {wijze: 'Versturen', def: false, uitleg: 'Indien u iets verkoopt ben u verantwoordelijk voor verzending naar koper', evalue: 'Versturen'},
+    // tslint:disable-next-line:max-line-length
+    {wijze: 'Versturen onder Rembours', def: false, uitleg: 'Indien u iets verkoopt ben u verantwoordelijk voor verzending naar koper', evalue: 'VersturenOnderRembours' },
+  ];
   registreerForm = new FormGroup({
     email1: new FormControl('',
       [
         Validators.required,
-        Validators.pattern('^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$'),
-        Validators.max(64)
-      ]),
+        Validators.maxLength(64),
+        Validators.pattern('^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$')
+      ]
+    ),
     email2: new FormControl('',
-      [Validators.required, Validators.pattern('^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$')]),
+      [
+        Validators.required,
+        Validators.pattern('^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$')
+      ]
+    ),
     wachtwoord1: new FormControl('',
-      [Validators.pattern('.*\\d.*'), Validators.pattern('.*\\s.*'), Validators.min(9)]),
-    wachtwoord2: new FormControl('',
-      [Validators.pattern('.*\\d.*'), Validators.pattern('.*\\s.*')]),
-    magazijnAfhalen: new FormControl(),
-    thuisAfhalen: new FormControl(),
-    versturen: new FormControl(),
-    versturenOnderRembours: new FormControl(),
-
+      [
+       Validators.pattern(' /^[0-9a-zA-Z]+$/'),
+       Validators.min(6)
+      ]
+    ),
+    wachtwoord2: new FormControl(''),
+    afhalenMagazijn: new FormControl(this.bezorgOpties[0].def),
+    afhalenThuis: new FormControl(this.bezorgOpties[1].def),
+    versturen: new FormControl(this.bezorgOpties[2].def),
+    versturenRembours: new FormControl(this.bezorgOpties[3].def),
     straatnaam: new FormControl(''),
     huisnummer: new FormControl(''),
     huisnummerToevoeging: new FormControl(''),
+    postcode: new FormControl(''),
     plaatsnaam: new FormControl(''),
+    land: new FormControl('Nederland'),
+    regelementakkoord: new FormControl(false)
+  }, {validators: [notSameEmailValidator] });
 
-
-    prijs: new FormControl(''),
-    bijlage: new FormControl(''),
-    verzendmethode: new FormControl('')
-  }, {validators: [notSameEmailValidator, notSameWachtwoordValidator]});
-
-
-  constructor() { }
-
-
-private addCheckboxes() {
-  this.bezorgOpties.forEach((o, i) => {
-    const control = new FormControl(i === 0); // if first item set to true, else false
-    (this.registreerForm.controls.orders as FormArray).push(control);
-  });
-}
-
+  // , notSameWachtwoordValidator
+  verificatieVanEmail: Observable<AllowedEmail>;
+  verificatieObject: AllowedEmail;
+  verificatieVanEmailIs: boolean;
+  veld1Id: string;
+  bezorgboxen: string[] = [];
+  constructor(private registreerService: RegistreerService) { }
 
   ngOnInit(): void {
+    this.veld1Id = 'email1';
+    this.verificatieObject = {
+      email: 'forbiddentestemail@test.nl',
+      allowed: false
+    };
+    this.verificatieVanEmailIs = false;
+    this.registreerForm.get('email1').valueChanges.subscribe(value => {
+            if (this.registreerForm.value.email1 !== this.verificatieObject.email){
+              this.verificatieVanEmailIs = false;
+            }
+    });
   }
 
+  onSubmit() {
+    console.warn(this.registreerForm.value);
+    if (this.registreerForm.value.afhalenMagazijn){
+      this.bezorgboxen.push(this.bezorgOpties[0].evalue);
+    }
+    if (this.registreerForm.value.afhalenThuis){
+      this.bezorgboxen.push(this.bezorgOpties[1].evalue);
+    }
+    if (this.registreerForm.value.versturen){
+      this.bezorgboxen.push(this.bezorgOpties[2].evalue);
+    }
+    if (this.registreerForm.value.versturenRembours){
+      this.bezorgboxen.push(this.bezorgOpties[3].evalue);
+    }
+    if (Array.isArray(this.bezorgboxen) && !this.bezorgboxen.length){
+      this.bezorgboxen.push('AfhalenMagazijn');
+    }
+
+    const registreerDto: any = {
+      email : this.registreerForm.value.email1,
+      regelementAkkoord: true,
+      bezorgwijzen: this.bezorgboxen,
+      wachtwoord: this.registreerForm.value.wachtwoord1,
+      adres:
+        this.registreerForm.value.straatnaam + ' ' +
+        this.registreerForm.value.huisnummer +
+        this.registreerForm.value.huisnummerToevoeging + ' ' +
+        this.registreerForm.value.postcode + ' ' +
+        this.registreerForm.value.land,
+    };
+
+    console.warn(registreerDto);
+
+    this.registreerService.register(registreerDto)
+      .subscribe(
+        response => console.log('Succes!'),
+        error => console.error('Error!')
+      );
+  }
+
+  verifyEmail() {
+    console.log('verfiyEmail has been called');
+    this.verificatieVanEmail = this.registreerService.checkValid(this.registreerForm.value.email1);
+    this.verificatieVanEmail.subscribe(x => {
+          this.verificatieObject = x;
+          console.log(x);
+          this.verificatieVanEmailIs = x.allowed;
+          if (this.verificatieVanEmailIs){
+            this.veld1Id = 'email1-valid';
+          }
+      });
+  }
 }

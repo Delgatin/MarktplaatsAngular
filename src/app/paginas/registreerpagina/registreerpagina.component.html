@@ -1,1 +1,98 @@
-<p>registreerpagina works!</p>
+<h1>registreer uwzelf!</h1>
+
+<form [formGroup]="registreerForm" notSameEmailValidator>
+  <label>
+    Wat is uw email?
+    <input id={{veld1Id}} class="form-control" type="text" formControlName="email1">
+    <div *ngIf="registreerForm.controls.email1.errors?.required" class="information">
+      *Dit is een verplicht veld
+    </div>
+    <div *ngIf="registreerForm.controls.email1.errors?.maxLength" class="alert-invoer-fout">
+      !Dit veld mag maximaal 64 karakters bevatten.
+    </div>
+    <div *ngIf="registreerForm.controls.email1.errors?.pattern" class="alert-invoer-fout">>
+      Geen correct email adres ingevoerd; voorbeeld@iets.nogiets.
+    </div>
+  </label>
+  <label>
+    bevestig email
+    <input id="email2" type="text" formControlName="email2">
+    <div *ngIf="registreerForm.errors?.notSameEmail"
+     class="cross-validation-error-message-alert-alert-danger">
+      Beide email adressen moeten hetzelfde zijn
+    </div>
+  </label>
+
+  <pre>{{registreerForm.errors | json}}</pre>
+
+  <pre>{{verificatieVanEmail | json}}</pre>
+
+  <pre>{{verificatieVanEmailIs}}</pre>
+
+  <button [hidden]="verificatieVanEmailIs" [disabled]="registreerForm.errors?.notSameEmail" (click)="verifyEmail()">Verifieer Email</button>
+  <label>
+    Welk wachtwoord wilt u gebruiken (minimaal 6 tekens, minimaal 1 letter, minimaal 1 cijfer)
+    <input type="password" formControlName="wachtwoord1">
+  </label>
+  <label>
+    bevestig wachtwoord
+    <input type="password" formControlName="wachtwoord2">
+  </label>
+  <label>
+    <table style="width:100%" align="left">
+      <tr>
+        <td height="30px">{{bezorgOpties[0].wijze}}</td>
+        <td><input type="checkbox" formControlName="afhalenMagazijn"></td>
+      </tr>
+      <tr>
+        <td height="30px">{{bezorgOpties[1].wijze}}</td>
+        <td><input type="checkbox" formControlName="afhalenThuis"></td>
+      </tr>
+      <tr>
+        <td height="30px">{{bezorgOpties[2].wijze}}</td>
+        <td><input type="checkbox" formControlName="versturen"></td>
+      </tr>
+      <tr>
+        <td height="30px">{{bezorgOpties[3].wijze}}</td>
+        <td><input type="checkbox" formControlName="versturenRembours"></td>
+      </tr>
+    </table>
+  </label>
+
+  <label>
+    straatnaam
+    <input type="text" formControlName="straatnaam">
+  </label>
+  <label>
+    huisnummer
+    <input type="text" formControlName="huisnummer">
+  </label>
+  <label>
+    huisnummer toevoeging
+    <input type="text" formControlName="huisnummerToevoeging">
+  </label>
+  <label>
+    postcode
+    <input type="text" formControlName="postcode">
+  </label>
+  <label>
+    plaatsnaam
+    <input type="text" formControlName="plaatsnaam">
+  </label>
+  <label>
+    land
+    <input type="text" formControlName="land">
+  </label>
+  <label>
+    <table style="width:100%" align="left">
+      <tr>
+        <td>regelementAkkoord</td>
+        <td height="30px"><input type="checkbox" formControlName="regelementakkoord"></td>
+      </tr>
+    </table>
+  </label>
+
+  <button type="submit" (click)="onSubmit()">Submit</button>
+
+</form>
+
